@@ -1,0 +1,108 @@
+
+<html>
+<link href="jquery-ui.css" rel="stylesheet" />
+<link href="jquery.timepicker.css" rel="stylesheet" />
+<script src="jquery-1.9.1.js"></script>
+<script src="jquery-ui.js"></script>
+<script src="jquery.timepicker.js"></script>
+<script type="text/javascript">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/redmond/jquery-ui.css">
+    <link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+  <script src='lib/jquery.min.js'></script>
+  <script src='lib/moment.min.js'></script>
+  <script src='fullcalendar/fullcalendar.js'></script>
+
+<body>
+
+<h1>Profile Information for</h1>
+<h2><%= @user.firstname%></h2>
+<div>
+Resume:<br>
+<textarea id="myTextarea">
+342 Alvin Road
+Ducksburg</textarea>
+</br>
+CoverLetter:<br>
+<textarea id="myTextarea">
+342 Alvin Road
+Ducksburg</textarea>
+</br>
+
+<br>
+  <button id="poll">Click to Schedule Interview</button>
+  <button id="nopoll">Click to Send NoOffer Mail</button>
+</br>
+<p><%= link_to "Go Back", jobs_path %></p>
+</div>
+<script type="text/javascript">
+$( document ).ready(function() {
+    
+  $("#poll").click(function() {
+   $('#datepicker').datepicker();
+
+      $("#myDialog").dialog({height: 'auto', buttons: { "OK":
+      function()
+      { var answer;
+         answer=$("#datepicker").val() ;
+         if(answer!="")
+         {
+         $.ajax({type: 'GET', url: '/adminusers/sendemails',dataType: 'script',data: { subject: ("Interview scheduled for "+ answer),type: "offer" } });
+          $(this).dialog("close");
+        }
+        else {
+        alert("Field cannot be empty");
+        }
+        } } });
+      }
+       );
+    $("#nopoll").click(function() {
+      $("#myDialognooffer").dialog({height: 'auto', buttons: { "OK": function() { var answer; answer=$("#nooffertext").val() ;$.ajax({type: 'GET', url: '/adminusers/sendemails',dataType: 'script',data: { subject: ("Interview scheduled for "+ answer), type: "nooffer"  } }); $(this).dialog("close"); } } });
+  });
+});
+
+</script>
+    <div id="myDialog" class="flora" title="Schedule Interview options" style="display: none;">
+      <br>
+      <p>Interview Scheduling Options for</p>
+      <%= @user.firstname %></li><br/>
+      <br>
+        <!-- add styles -->
+      <link href="css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+
+      <!-- add scripts -->
+      <script src="js/jquery.191.js"></script>
+      <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+
+        <!--Interview Date(MM/DD/YY): <input type="text" id="first_name" />
+        Interview Time: <input type="text" id="time_name" /> -->
+
+        <!-- Adding calendar functionality-->
+        <br>
+        Application Status:<select>
+          <option value="volvo">NeedsReview</option>
+          <option value="saab">Under Review</option>
+          <option value="opel">Finished Processing</option>
+          <option value="audi">Match not Ideal</option>
+        </select>
+      </br>
+      <br>
+        Interview Time:<input id="datetimepicker" type="text" /></br>
+        Interview Date: <input id="datepicker" type="text" width="auto" height="auto"/>
+        Interview Email:<textarea id="interviewemail"> you have been selected for the next round</textarea>
+        </script>
+</div>
+<div id="myDialognooffer" class="flora" title="send nooffer mail" style="display: none;">
+    <p>Are you sure</p>
+    Rejection Email:<textarea id="nooffertext">
+    Something Better is Waiting for you</textarea>
+</div>
+
+
+   <div style='color: green;' id='result'>
+    </div>
+
+</body>
+</html>

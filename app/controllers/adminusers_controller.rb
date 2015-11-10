@@ -11,31 +11,38 @@ class AdminusersController < ApplicationController
   def show
   end
 
-  # GET /adminusers/new
+
   def new
     @adminuser = Adminuser.new
   end
-#<<<<<<< HEAD
+
  def viewapplicants
-   @user=User.new( :firstname=> "Akshay" );
-  @user2=User.new( :firstname=> "Varun" );
-  UserMailer.welcome_email(@user).deliver
+     @job=Job.find_by_id(params[:job_id])
+   @user=User.create( :firstname=> "Akshay", :lastname=> "Paul",:email=> "velpulaakshaypaul@gmail.com",:contact=> "9792003095"  );
+#  @user2=User.new( :firstname=> "Varun" );
+#  UserMailer.welcome_email(@user).deliver
  end
-#=======
+ def viewapplicantprofile
+   @job=Job.find_by_id(params[:job_id])
+     @user=User.create( :firstname=> "Akshay", :lastname=> "Paul",:email=> "velpulaakshaypaul@gmail.com",:contact=> "9792003095"  );
+ end
+
 def sendemails
-  @user=User.new( :firstname=> params[:subject] );
+  @typeofemail=params[:type];
+  @user=User.new( :firstname=> params[:subject],:email=> "velpulaakshaypaul@gmail.com" );
+  @user2=User.new( :firstname=> "Betterlucknexttime",:email=> "velpulaakshaypaul@gmail.com" );
+  if @typeofemail=="offer"
   @Mailtester=UserMailer.welcome_email(@user).deliver
-  redirect_to :action => 'viewapplicantinformation'
+   puts "success"
+ else
+   @Mailtester=UserMailer.welcome_email(@user2).deliver
+   puts "stillsuccess"
+ end
 end
-#>>>>>>> e6b1b225c542ff112034bb5fade7eb2de6c16b30
-  # GET /adminusers/1/edit
+
   def edit
   end
-  def viewapplicantinformation
-   @user=User.new( :firstname=> "Akshay" );
-   @user2=User.new( :firstname=> "Varun" );
- #@users = User.all
-  end
+
   # POST /adminusers
   # POST /adminusers.json
   def create

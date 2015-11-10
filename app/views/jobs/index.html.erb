@@ -1,6 +1,6 @@
 <head>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.js"></script>
   <!--link rel='stylesheet' href='fullcalendar/fullcalendar.css' /-->
   <!--script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script-->
 
@@ -34,11 +34,7 @@
         <td><%= link_to 'Show', job, class: "btn btn-link" %></td>
         <td><%= link_to 'Edit', edit_job_path(job), class: "btn btn-link" %></td>
         <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-link" %></td>
-<!-- <<<<<<< HEAD -->
-        <td><%= link_to 'Check Applicants', viewapplicants_adminusers_path,  class: "btn btn-link" %></td>
-<!-- ======= -->
-        <td><%= link_to 'Check Applicants', viewapplicantinformation_adminusers_path,  class: "btn btn-link" %></td>
-<!-- >>>>>>> e6b1b225c542ff112034bb5fade7eb2de6c16b30 -->
+        <td><%= link_to 'Check Applicants', viewapplicants_adminusers_path(:job_id => job.id),  class: "btn btn-link" %></td>
       </tr>
     <% end %>
   </tbody>
