@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :adminusers do
     collection do
     get 'viewapplicants'
+    get 'viewapplicantprofile'
+    get 'sendemails'
   end
   end
 # =======
@@ -11,12 +13,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :applicants
   resources :internship_applications
-  resources :adminusers do
-    collection do
-     get 'viewapplicantinformation'
-     get 'sendemails'
-    end
-    end
+  
 # >>>>>>> e6b1b225c542ff112034bb5fade7eb2de6c16b30
   resources :jobs
   devise_for :users
